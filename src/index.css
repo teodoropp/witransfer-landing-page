@@ -578,6 +578,11 @@ body {
   border: 1px solid rgba(0, 0, 0, 0.02);
   max-width: 1050px;
   margin: 0 auto;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.partners-split:hover {
+  box-shadow: 0 30px 60px rgba(144, 42, 209, 0.12);
 }
 
 .partners-details {
@@ -596,7 +601,7 @@ body {
   font-size: 1.05rem;
   line-height: 1.6;
   margin-bottom: 2.5rem;
-  opacity: 0.9;
+  color: rgba(255, 255, 255, 0.8);
 }
 
 .contact-info-list {
@@ -648,6 +653,7 @@ body {
 
 .partners-form-container {
   padding: 3.5rem 3.5rem 3.5rem 1.5rem;
+  background: var(--color-white);
 }
 
 .partners-form {
@@ -676,22 +682,23 @@ body {
 
 .form-group input,
 .form-group textarea {
-  padding: 1rem 1.2rem;
-  border-radius: 12px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  background: var(--color-surface);
+  padding: 1.1rem 1.25rem;
+  border-radius: 16px;
+  border: 1.5px solid rgba(144, 42, 209, 0.08);
+  background: #fdfbff;
   font-family: inherit;
   font-size: 1rem;
   color: var(--color-text);
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
   outline: none;
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 4px rgba(144, 42, 209, 0.1);
+  box-shadow: 0 10px 25px rgba(144, 42, 209, 0.08);
   background: var(--color-white);
+  transform: translateY(-2px);
 }
 
 .form-submit-btn {
@@ -700,6 +707,7 @@ body {
   padding: 1.2rem;
   font-size: 1.1rem;
   justify-content: center;
+  border-radius: 14px;
 }
 
 /* Secção de Download */
@@ -923,14 +931,52 @@ body {
     padding-bottom: 0;
   }
   
+  .partners-section {
+    padding: 60px 0;
+  }
   .partners-split {
     grid-template-columns: 1fr;
+    border-radius: 24px;
+    margin: 0 1rem;
+    overflow: hidden;
   }
   .partners-details, .partners-form-container {
-    padding: 2.5rem;
+    padding: 2.5rem 1.5rem;
+  }
+  .partners-details {
+    position: relative;
+  }
+  .partners-details::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 10%;
+    width: 80%;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+  }
+  .partners-details h3 {
+    font-size: 1.75rem;
+    text-align: center;
+  }
+  .partners-details-desc {
+    text-align: center;
+    font-size: 1rem;
+  }
+  .contact-info-list {
+    gap: 1.5rem;
+  }
+  .contact-item {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
   }
   .form-row {
     grid-template-columns: 1fr;
+  }
+  .form-group input, .form-group textarea {
+    padding: 0.85rem 1rem;
   }
 }
 
