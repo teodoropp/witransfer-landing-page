@@ -26,10 +26,14 @@ html {
   background-color: var(--color-background);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  width: 100%;
 }
 
 body {
   overflow-x: hidden;
+  width: 100%;
+  position: relative;
 }
 
 .container {
@@ -89,6 +93,7 @@ body {
   top: 0;
   left: 0;
   right: 0;
+  width: 100%;
   z-index: 50;
   transition: all 0.3s ease;
   padding: 0.5rem 0;
@@ -105,6 +110,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 100%;
 }
 
 .header-actions {
@@ -328,6 +334,8 @@ body {
   .hero-split {
     grid-template-columns: 1fr;
     text-align: center;
+    gap: 2rem;
+    width: 100%;
   }
   .hero-content-split p {
     margin: 0 auto 2.5rem;
@@ -914,7 +922,7 @@ body {
   .about-text {
     text-align: center;
   }
-  .hero-content h1 {
+  .hero-content-split h1 {
     font-size: 3rem;
   }
   
@@ -1084,7 +1092,7 @@ body {
     margin-bottom: 1rem;
   }
 
-  .hero-content h1 {
+  .hero-content-split h1 {
     font-size: 2.25rem;
   }
   
