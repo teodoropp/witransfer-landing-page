@@ -127,6 +127,7 @@ function App() {
             <img
               src="/images/logo.png"
               alt="WiTransfer"
+              className="main-logo"
               style={{
                 height: scrolled ? "70px" : "65px",
                 objectFit: "contain",
@@ -165,11 +166,6 @@ function App() {
                     alt="WiTransfer"
                     className="mobile-menu-logo"
                   />
-                  <button
-                    className="menu-close"
-                    onClick={() => setIsMenuOpen(false)}>
-                    <X size={28} />
-                  </button>
                 </div>
 
                 <nav className="mobile-nav">

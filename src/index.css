@@ -43,6 +43,9 @@ body {
   .container {
     padding: 0 1rem;
   }
+  .main-logo {
+    height: 55px !important;
+  }
 }
 
 .text-gradient {
@@ -1031,7 +1034,7 @@ body {
   }
 
   .mobile-menu-logo {
-    height: 38px;
+    height: 50px;
     object-fit: contain;
   }
 
