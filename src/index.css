@@ -865,7 +865,8 @@ body {
   }
   .footer-bottom {
     flex-direction: column;
-    text-align: center;
+    text-align: left;
+    align-items: flex-start;
     gap: 1rem;
   }
 }
@@ -1085,13 +1086,13 @@ body {
 
   .footer-content {
     grid-template-columns: 1fr;
-    text-align: center;
+    text-align: left;
     gap: 2rem;
   }
 
   .footer-brand {
     grid-column: 1 / -1;
-    align-items: center;
+    align-items: flex-start;
     display: flex;
     flex-direction: column;
   }
@@ -1102,7 +1103,7 @@ body {
   }
 
   .footer-links-group ul {
-    align-items: center;
+    align-items: flex-start;
     display: flex;
     flex-direction: column;
     font-size: 0.8rem;
