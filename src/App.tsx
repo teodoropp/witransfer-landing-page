@@ -127,7 +127,11 @@ function App() {
             <img
               src="/images/logo.png"
               alt="WiTransfer"
-              style={{ height: "50px", objectFit: "contain" }}
+              style={{
+                height: scrolled ? "50px" : "65px",
+                objectFit: "contain",
+                transition: "height 0.3s ease",
+              }}
             />
           </a>
 
