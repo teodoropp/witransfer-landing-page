@@ -1075,7 +1075,7 @@ body {
     margin-top: auto;
     padding-top: 2rem;
     border-top: 1px solid #e2e8f0;
-    text-align: center;
+    text-align: left;
   }
 
   .mobile-cta {
@@ -1090,6 +1090,7 @@ body {
     color: var(--color-text-muted);
     font-size: 0.9rem;
     margin-bottom: 1rem;
+    text-align: left;
   }
 
   .hero-content-split h1 {
