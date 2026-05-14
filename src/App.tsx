@@ -57,6 +57,22 @@ function App() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const scrollToSection = (e: React.MouseEvent, id: string) => {
+    e.preventDefault();
+    const element = document.getElementById(id);
+    if (element) {
+      const headerHeight = scrolled ? 80 : 100;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+      setIsMenuOpen(false);
+    }
+  };
+
   if (isLoading) {
     return (
       <div className="skeleton-container">
@@ -138,11 +154,11 @@ function App() {
 
           <div className="header-actions">
             <nav className="nav-links desktop-only">
-              <a href="#about">Sobre</a>
-              <a href="#features">Funcionalidades</a>
-              <a href="#partners">Parceiros</a>
+              <a href="#about" onClick={(e) => scrollToSection(e, "about")}>Sobre</a>
+              <a href="#features" onClick={(e) => scrollToSection(e, "features")}>Funcionalidades</a>
+              <a href="#partners" onClick={(e) => scrollToSection(e, "partners")}>Parceiros</a>
             </nav>
-            <a href="#download" className="btn-nav desktop-only">
+            <a href="#download" className="btn-nav desktop-only" onClick={(e) => scrollToSection(e, "download")}>
               Obter a App
             </a>
             <button
@@ -171,7 +187,7 @@ function App() {
                 <nav className="mobile-nav">
                   <motion.a
                     href="#about"
-                    onClick={() => setIsMenuOpen(false)}
+                    onClick={(e) => scrollToSection(e, "about")}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.1 }}>
@@ -179,7 +195,7 @@ function App() {
                   </motion.a>
                   <motion.a
                     href="#features"
-                    onClick={() => setIsMenuOpen(false)}
+                    onClick={(e) => scrollToSection(e, "features")}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2 }}>
@@ -187,7 +203,7 @@ function App() {
                   </motion.a>
                   <motion.a
                     href="#partners"
-                    onClick={() => setIsMenuOpen(false)}
+                    onClick={(e) => scrollToSection(e, "partners")}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.3 }}>
@@ -201,7 +217,7 @@ function App() {
                     <a
                       href="#download"
                       className="btn-nav mobile-cta"
-                      onClick={() => setIsMenuOpen(false)}>
+                      onClick={(e) => scrollToSection(e, "download")}>
                       Obter a App
                     </a>
                     <p>Siga-nos nas redes sociais</p>
@@ -230,10 +246,10 @@ function App() {
                 utilização do mercado.
               </p>
               <div className="hero-actions-split">
-                <a href="#download" className="btn btn-primary">
+                <a href="#download" className="btn btn-primary" onClick={(e) => scrollToSection(e, "download")}>
                   Baixar Agora <ChevronRight size={20} />
                 </a>
-                <a href="#features" className="btn btn-secondary">
+                <a href="#features" className="btn btn-secondary" onClick={(e) => scrollToSection(e, "features")}>
                   Saber Mais
                 </a>
               </div>
