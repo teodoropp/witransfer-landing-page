@@ -88,13 +88,13 @@ body {
   right: 0;
   z-index: 50;
   transition: all 0.3s ease;
-  padding: 0.8rem 0;
+  padding: 0.5rem 0;
 }
 
 .header.scrolled {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
-  padding: 0.5rem 0;
+  padding: 0rem 0;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 

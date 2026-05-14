@@ -128,7 +128,7 @@ function App() {
               src="/images/logo.png"
               alt="WiTransfer"
               style={{
-                height: scrolled ? "50px" : "65px",
+                height: scrolled ? "70px" : "65px",
                 objectFit: "contain",
                 transition: "height 0.3s ease",
               }}
