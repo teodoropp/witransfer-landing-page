@@ -32,12 +32,17 @@ body {
   overflow-x: hidden;
 }
 
-/* Utilitários */
 .container {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 1.5rem;
+}
+
+@media (max-width: 576px) {
+  .container {
+    padding: 0 1rem;
+  }
 }
 
 .text-gradient {
@@ -936,12 +941,14 @@ body {
   }
   .partners-split {
     grid-template-columns: 1fr;
-    border-radius: 24px;
-    margin: 0 1rem;
+    border-radius: 20px;
+    margin: 0;
+    width: 100%;
     overflow: hidden;
   }
   .partners-details, .partners-form-container {
-    padding: 2.5rem 1.5rem;
+    padding: 2rem 1.25rem;
+    width: 100%;
   }
   .partners-details {
     position: relative;
@@ -956,8 +963,9 @@ body {
     background: rgba(255, 255, 255, 0.1);
   }
   .partners-details h3 {
-    font-size: 1.75rem;
+    font-size: 1.5rem;
     text-align: center;
+    margin-bottom: 1rem;
   }
   .partners-details-desc {
     text-align: center;
@@ -967,16 +975,23 @@ body {
     gap: 1.5rem;
   }
   .contact-item {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 1rem;
-    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 0.85rem;
+    border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.1);
+    width: 100%;
+  }
+  .contact-item span, .contact-link {
+    font-size: 0.95rem;
+    word-break: break-all;
   }
   .form-row {
     grid-template-columns: 1fr;
+    gap: 1rem;
   }
   .form-group input, .form-group textarea {
-    padding: 0.85rem 1rem;
+    padding: 0.8rem 1rem;
+    font-size: 16px; /* Evita zoom automático no iOS */
   }
 }
 
@@ -1069,9 +1084,9 @@ body {
   }
 
   .footer-content {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr;
     text-align: center;
-    gap: 2.5rem 0.5rem;
+    gap: 2rem;
   }
 
   .footer-brand {

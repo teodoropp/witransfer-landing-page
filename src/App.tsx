@@ -1,3 +1,4 @@
+/** @format */
 
 // Trigger deployment with new secrets
 
@@ -126,7 +127,7 @@ function App() {
             <img
               src="/images/logo.png"
               alt="WiTransfer"
-              style={{ height: "45px", objectFit: "contain" }}
+              style={{ height: "50px", objectFit: "contain" }}
             />
           </a>
 
@@ -755,7 +756,9 @@ function App() {
                     </div>
                     <div>
                       <strong>Telefone</strong>
-                      <a href="tel:+244926002092" className="contact-link">+244 926 002 092</a>
+                      <a href="tel:+244926002092" className="contact-link">
+                        +244 926 002 092
+                      </a>
                     </div>
                   </div>
                   <div className="contact-item">
@@ -764,7 +767,11 @@ function App() {
                     </div>
                     <div>
                       <strong>E-mail</strong>
-                      <a href="mailto:Geral@maisresultados.co.ao" className="contact-link">Geral@maisresultados.co.ao</a>
+                      <a
+                        href="mailto:Geral@maisresultados.co.ao"
+                        className="contact-link">
+                        Geral@maisresultados.co.ao
+                      </a>
                     </div>
                   </div>
                   <div className="contact-item">
@@ -956,8 +963,6 @@ function App() {
               &copy; {new Date().getFullYear()} WiTransfer. Todos os direitos
               reservados.
             </p>
-
-            <p>Desenvolvido por Teodoro Pedro</p>
           </div>
         </div>
       </footer>
