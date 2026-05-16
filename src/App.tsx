@@ -1,3 +1,21 @@
+/**
+ * eslint-disable @typescript-eslint/no-explicit-any
+ *
+ * @format
+ */
+
+/**
+ * eslint-disable @typescript-eslint/no-explicit-any
+ *
+ * @format
+ */
+
+/**
+ * eslint-disable @typescript-eslint/no-explicit-any
+ *
+ * @format
+ */
+
 import { useEffect, useState } from "react";
 import {
   MapPin,
@@ -13,7 +31,9 @@ import {
   X,
   Bot,
   Languages,
+  QrCode,
 } from "lucide-react";
+import { QRCodeSVG } from "qrcode.react";
 import { motion, AnimatePresence } from "framer-motion";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
@@ -21,6 +41,7 @@ import "./index.css";
 import { translations } from "./translations";
 import type { Language } from "./translations";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const InternationalPhoneInput = (PhoneInput as any).default || PhoneInput;
 
 function App() {
@@ -29,6 +50,8 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [lang, setLang] = useState<Language>("pt");
+  const [dialCode, setDialCode] = useState("244");
+  const [showQRModal, setShowQRModal] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -38,8 +61,7 @@ function App() {
 
   const t = translations[lang];
 
-  const whatsappLink =
-    `https://wa.me/244926002092?text=${encodeURIComponent(t.whatsappText)}`;
+  const whatsappLink = `https://wa.me/244926002092?text=${encodeURIComponent(t.whatsappText)}`;
 
   const handlePartnerSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -53,7 +75,10 @@ function App() {
   };
 
   useEffect(() => {
-    document.title = lang === "pt" ? "WiTransfer - Sua viagem, nossa prioridade" : "WiTransfer - Your journey, our priority";
+    document.title =
+      lang === "pt"
+        ? "WiTransfer - Sua viagem, nossa prioridade"
+        : "WiTransfer - Your journey, our priority";
   }, [lang]);
 
   useEffect(() => {
@@ -78,7 +103,8 @@ function App() {
     if (element) {
       const headerHeight = scrolled ? 80 : 100;
       const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
+      const offsetPosition =
+        elementPosition + window.pageYOffset - headerHeight;
 
       window.scrollTo({
         top: offsetPosition,
@@ -172,14 +198,23 @@ function App() {
               <a href="#about" onClick={(e) => scrollToSection(e, "about")}>
                 {t.nav.about}
               </a>
-              <a href="#features" onClick={(e) => scrollToSection(e, "features")}>
+              <a
+                href="#features"
+                onClick={(e) => scrollToSection(e, "features")}>
                 {t.nav.features}
               </a>
-              <a href="#partners" onClick={(e) => scrollToSection(e, "partners")}>
+              <a
+                href="#partners"
+                onClick={(e) => scrollToSection(e, "partners")}>
                 {t.nav.partners}
               </a>
             </nav>
-            <button className="lang-toggle" onClick={toggleLang} title={lang === "pt" ? "Switch to English" : "Mudar para Português"}>
+            <button
+              className="lang-toggle"
+              onClick={toggleLang}
+              title={
+                lang === "pt" ? "Switch to English" : "Mudar para Português"
+              }>
               <Languages size={20} />
               <span>{lang.toUpperCase()}</span>
             </button>
@@ -210,7 +245,12 @@ function App() {
                     alt="WiTransfer"
                     className="mobile-menu-logo"
                   />
-                  <button className="lang-toggle-mobile" onClick={() => { toggleLang(); setIsMenuOpen(false); }}>
+                  <button
+                    className="lang-toggle-mobile"
+                    onClick={() => {
+                      toggleLang();
+                      setIsMenuOpen(false);
+                    }}>
                     <Languages size={20} />
                     <span>{lang.toUpperCase()}</span>
                   </button>
@@ -742,7 +782,9 @@ function App() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}>
                 <h3>{t.partners.contactTitle}</h3>
-                <p className="partners-details-desc">{t.partners.contactDesc}</p>
+                <p className="partners-details-desc">
+                  {t.partners.contactDesc}
+                </p>
 
                 <div className="contact-info-list">
                   <div className="contact-item">
@@ -809,38 +851,58 @@ function App() {
                       }
                     />
                   </div>
-                    <div className="form-group">
-                      <label>{t.partners.form.email}</label>
+                  <div className="form-group">
+                    <label>{t.partners.form.email}</label>
+                    <input
+                      type="email"
+                      placeholder={t.partners.form.emailPlaceholder}
+                      required
+                      value={formData.email}
+                      onChange={(e) =>
+                        setFormData({ ...formData, email: e.target.value })
+                      }
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label>{t.partners.form.phone}</label>
+                    <div className="separated-phone-input">
+                      // eslint-disable-next-line
+                      @typescript-eslint/no-explicit-any
+                      <div
+                        className="country-selector-wrapper"
+                        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                        style={{ "--dial-code": `"+${dialCode}"` } as any}>
+                        <InternationalPhoneInput
+                          country={"ao"}
+                          value={dialCode}
+                          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                          onChange={(_phone, data: any) => {
+                            setDialCode(data.dialCode);
+                          }}
+                          inputStyle={{ display: "none" }}
+                          buttonClass="country-selector-button"
+                          dropdownClass="phone-input-dropdown"
+                          searchClass="phone-input-search"
+                          enableSearch={true}
+                          disableSearchIcon={true}
+                          searchPlaceholder="Pesquisar..."
+                          specialLabel=""
+                        />
+                      </div>
                       <input
-                        type="email"
-                        placeholder={t.partners.form.emailPlaceholder}
-                        required
-                        value={formData.email}
-                        onChange={(e) =>
-                          setFormData({ ...formData, email: e.target.value })
-                        }
-                      />
-                    </div>
-                    <div className="form-group">
-                      <label>{t.partners.form.phone}</label>
-                      <InternationalPhoneInput
-                        country={"ao"}
-                        value={formData.phone}
-                        onChange={(phone: string) =>
-                          setFormData({ ...formData, phone })
-                        }
+                        type="tel"
+                        className="standalone-phone-input"
                         placeholder={t.partners.form.phonePlaceholder}
-                        inputClass="phone-input-field"
-                        containerClass="phone-input-container"
-                        buttonClass="phone-input-button"
-                        dropdownClass="phone-input-dropdown"
-                        searchClass="phone-input-search"
-                        enableSearch={true}
-                        disableSearchIcon={true}
-                        searchPlaceholder="Pesquisar..."
-                        specialLabel=""
+                        required
+                        value={formData.phone}
+                        onChange={(e) => {
+                          // Apenas números
+                          const val = e.target.value.replace(/\D/g, "");
+                          setFormData({ ...formData, phone: val });
+                        }}
                       />
                     </div>
+                  </div>
                   <div className="form-group">
                     <label>{t.partners.form.message}</label>
                     <textarea
@@ -873,8 +935,17 @@ function App() {
                 <div className="download-action">
                   <a
                     href="/witransfer.apk"
-                    download
                     className="btn btn-secondary"
+                    onClick={(e) => {
+                      // Verificar se é mobile de forma simples
+                      const isMobile = /iPhone|iPad|iPod|Android/i.test(
+                        navigator.userAgent,
+                      );
+                      if (!isMobile) {
+                        e.preventDefault();
+                        setShowQRModal(true);
+                      }
+                    }}
                     style={{
                       background: "var(--color-white)",
                       color: "var(--color-primary)",
@@ -896,6 +967,56 @@ function App() {
             </div>
           </div>
         </section>
+
+        {/* QR Code Modal */}
+        <AnimatePresence>
+          {showQRModal && (
+            <motion.div
+              className="qr-modal-overlay"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setShowQRModal(false)}>
+              <motion.div
+                className="qr-modal-content"
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.8, opacity: 0 }}
+                onClick={(e) => e.stopPropagation()}>
+                <button
+                  className="qr-modal-close"
+                  onClick={() => setShowQRModal(false)}>
+                  <X size={24} />
+                </button>
+                <div className="qr-modal-header">
+                  <QrCode size={40} className="qr-icon" />
+                  <h3>Baixe o WiTransfer</h3>
+                  <p>
+                    Aponte a câmara do seu telemóvel para o código abaixo para
+                    descarregar a aplicação.
+                  </p>
+                </div>
+                <div className="qr-code-container">
+                  <QRCodeSVG
+                    value={window.location.origin + "/witransfer.apk"}
+                    size={200}
+                    level={"H"}
+                    includeMargin={true}
+                  />
+                </div>
+                <div className="qr-modal-footer">
+                  <p>Disponível para Android</p>
+                  <div className="store-badges">
+                    {/* Futuros links para as lojas */}
+                    <span className="badge-placeholder">
+                      Play Store em breve
+                    </span>
+                  </div>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </main>
 
       <footer className="footer">
