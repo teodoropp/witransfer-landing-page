@@ -1,7 +1,3 @@
-/** @format */
-
-// Trigger deployment with new secrets
-
 import { useEffect, useState } from "react";
 import {
   MapPin,
@@ -16,14 +12,18 @@ import {
   Menu,
   X,
   Bot,
+  Languages,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import "./index.css";
+import { translations } from "./translations";
+import type { Language } from "./translations";
 
 function App() {
   const [scrolled, setScrolled] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [lang, setLang] = useState<Language>("pt");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -31,15 +31,25 @@ function App() {
     message: "",
   });
 
+  const t = translations[lang];
+
   const whatsappLink =
-    "https://wa.me/244926002092?text=Olá!%20Gostaria%20de%20obter%20mais%20informações%20sobre%20como%20ser%20um%20motorista%20WiTransfer.";
+    `https://wa.me/244926002092?text=${encodeURIComponent(t.whatsappText)}`;
 
   const handlePartnerSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const text = `*Novo Pedido de Parceria WiTransfer*\n\n*Nome/Empresa:* ${formData.name}\n*E-mail:* ${formData.email}\n*Telefone:* ${formData.phone}\n\n*Mensagem:*\n${formData.message}`;
+    const text = `*${t.formWhatsappTitle}*\n\n*${t.formWhatsappName}:* ${formData.name}\n*${t.formWhatsappEmail}:* ${formData.email}\n*${t.formWhatsappPhone}:* ${formData.phone}\n\n*${t.formWhatsappMsg}:*\n${formData.message}`;
     const encodedText = encodeURIComponent(text);
     window.open(`https://wa.me/244926002092?text=${encodedText}`, "_blank");
   };
+
+  const toggleLang = () => {
+    setLang((prev) => (prev === "pt" ? "en" : "pt"));
+  };
+
+  useEffect(() => {
+    document.title = lang === "pt" ? "WiTransfer - Sua viagem, nossa prioridade" : "WiTransfer - Your journey, our priority";
+  }, [lang]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -154,12 +164,25 @@ function App() {
 
           <div className="header-actions">
             <nav className="nav-links desktop-only">
-              <a href="#about" onClick={(e) => scrollToSection(e, "about")}>Sobre</a>
-              <a href="#features" onClick={(e) => scrollToSection(e, "features")}>Funcionalidades</a>
-              <a href="#partners" onClick={(e) => scrollToSection(e, "partners")}>Parceiros</a>
+              <a href="#about" onClick={(e) => scrollToSection(e, "about")}>
+                {t.nav.about}
+              </a>
+              <a href="#features" onClick={(e) => scrollToSection(e, "features")}>
+                {t.nav.features}
+              </a>
+              <a href="#partners" onClick={(e) => scrollToSection(e, "partners")}>
+                {t.nav.partners}
+              </a>
             </nav>
-            <a href="#download" className="btn-nav desktop-only" onClick={(e) => scrollToSection(e, "download")}>
-              Obter a App
+            <button className="lang-toggle" onClick={toggleLang} title={lang === "pt" ? "Switch to English" : "Mudar para Português"}>
+              <Languages size={20} />
+              <span>{lang.toUpperCase()}</span>
+            </button>
+            <a
+              href="#download"
+              className="btn-nav desktop-only"
+              onClick={(e) => scrollToSection(e, "download")}>
+              {t.nav.download}
             </a>
             <button
               className="menu-toggle"
@@ -182,6 +205,10 @@ function App() {
                     alt="WiTransfer"
                     className="mobile-menu-logo"
                   />
+                  <button className="lang-toggle-mobile" onClick={() => { toggleLang(); setIsMenuOpen(false); }}>
+                    <Languages size={20} />
+                    <span>{lang.toUpperCase()}</span>
+                  </button>
                 </div>
 
                 <nav className="mobile-nav">
@@ -191,7 +218,7 @@ function App() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.1 }}>
-                    Sobre
+                    {t.nav.about}
                   </motion.a>
                   <motion.a
                     href="#features"
@@ -199,7 +226,7 @@ function App() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2 }}>
-                    Funcionalidades
+                    {t.nav.features}
                   </motion.a>
                   <motion.a
                     href="#partners"
@@ -207,7 +234,7 @@ function App() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.3 }}>
-                    Parceiros
+                    {t.nav.partners}
                   </motion.a>
                   <motion.div
                     className="mobile-menu-footer"
@@ -218,9 +245,9 @@ function App() {
                       href="#download"
                       className="btn-nav mobile-cta"
                       onClick={(e) => scrollToSection(e, "download")}>
-                      Obter a App
+                      {t.nav.download}
                     </a>
-                    <p>Siga-nos nas redes sociais</p>
+                    <p>{t.nav.followUs}</p>
                     <div className="mobile-socials">
                       {/* Placeholders for social icons if needed */}
                     </div>
@@ -237,20 +264,22 @@ function App() {
           <div className="container hero-split">
             <div className="hero-content-split animate-fade-in">
               <h1>
-                Sua viagem, <br />
-                <span className="text-gradient">nossa prioridade.</span>
+                {t.hero.title} <br />
+                <span className="text-gradient">{t.hero.subtitle}</span>
               </h1>
-              <p>
-                O WiTransfer conecta-o aos melhores motoristas da cidade.
-                Rápido, seguro e concebido com a melhor experiência de
-                utilização do mercado.
-              </p>
+              <p>{t.hero.description}</p>
               <div className="hero-actions-split">
-                <a href="#download" className="btn btn-primary" onClick={(e) => scrollToSection(e, "download")}>
-                  Baixar Agora <ChevronRight size={20} />
+                <a
+                  href="#download"
+                  className="btn btn-primary"
+                  onClick={(e) => scrollToSection(e, "download")}>
+                  {t.hero.cta} <ChevronRight size={20} />
                 </a>
-                <a href="#features" className="btn btn-secondary" onClick={(e) => scrollToSection(e, "features")}>
-                  Saber Mais
+                <a
+                  href="#features"
+                  className="btn btn-secondary"
+                  onClick={(e) => scrollToSection(e, "features")}>
+                  {t.hero.learnMore}
                 </a>
               </div>
             </div>
@@ -282,22 +311,10 @@ function App() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.6 }}>
-                <div className="about-badge">O que é o WiTransfer?</div>
-                <h2>
-                  Muito mais que uma viagem. Uma nova forma de viver a cidade.
-                </h2>
-                <p>
-                  O WiTransfer nasceu com o objetivo de revolucionar a
-                  mobilidade urbana, unindo tecnologia de ponta, motoristas de
-                  excelência e uma preocupação constante com a segurança e o
-                  conforto dos nossos utilizadores.
-                </p>
-                <p>
-                  A nossa plataforma proporciona a simbiose perfeita entre quem
-                  precisa de chegar rápido ao seu destino e profissionais
-                  dedicados a oferecer a melhor experiência de condução
-                  possível.
-                </p>
+                <div className="about-badge">{t.about.badge}</div>
+                <h2>{t.about.title}</h2>
+                <p>{t.about.p1}</p>
+                <p>{t.about.p2}</p>
               </motion.div>
 
               <motion.div
@@ -328,11 +345,8 @@ function App() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.6 }}>
-              <h2>Como funciona?</h2>
-              <p>
-                Solicitar uma viagem com o WiTransfer é tão simples quanto
-                contar até cinco.
-              </p>
+              <h2>{t.features.title}</h2>
+              <p>{t.features.subtitle}</p>
             </motion.div>
 
             <div className="features-zigzag">
@@ -364,25 +378,20 @@ function App() {
                     }}>
                     <ScanFace size={30} />
                   </div>
-                  <h3>1. Registo Rápido e Seguro</h3>
-                  <p>
-                    Inicie a sua jornada criando uma conta em segundos. O nosso
-                    processo de autenticação é simples, podendo até utilizar
-                    biometria facial para um acesso ainda mais rápido e
-                    protegido nas próximas vezes.
-                  </p>
+                  <h3>{t.features.step1.title}</h3>
+                  <p>{t.features.step1.desc}</p>
                   <ul className="zigzag-list">
                     <li>
                       <div className="list-icon">
                         <ChevronRight size={14} />
                       </div>{" "}
-                      Acesso imediato à plataforma
+                      {t.features.step1.list1}
                     </li>
                     <li>
                       <div className="list-icon">
                         <ChevronRight size={14} />
                       </div>{" "}
-                      Opção de Login biométrico
+                      {t.features.step1.list2}
                     </li>
                   </ul>
                 </motion.div>
@@ -402,7 +411,7 @@ function App() {
                     }}>
                     <img
                       src="/screens/step1.png"
-                      alt="Passo 1 - Login"
+                      alt={t.features.step1.title}
                       style={{
                         width: "100%",
                         height: "100%",
@@ -441,25 +450,20 @@ function App() {
                     }}>
                     <Star size={30} />
                   </div>
-                  <h3>2. Escolha a Categoria</h3>
-                  <p>
-                    Na página principal, selecione a categoria de viagem que
-                    melhor se adequa às suas necessidades. Oferecemos opções
-                    diversas para garantir que viaja sempre com o conforto e o
-                    preço ideais para cada momento.
-                  </p>
+                  <h3>{t.features.step2.title}</h3>
+                  <p>{t.features.step2.desc}</p>
                   <ul className="zigzag-list">
                     <li>
                       <div className="list-icon">
                         <ChevronRight size={14} />
                       </div>{" "}
-                      Várias opções de categorias
+                      {t.features.step2.list1}
                     </li>
                     <li>
                       <div className="list-icon">
                         <ChevronRight size={14} />
                       </div>{" "}
-                      Preços adaptados a si
+                      {t.features.step2.list2}
                     </li>
                   </ul>
                 </motion.div>
@@ -479,7 +483,7 @@ function App() {
                     }}>
                     <img
                       src="/screens/step2.png"
-                      alt="Passo 2 - Categoria"
+                      alt={t.features.step2.title}
                       style={{
                         width: "100%",
                         height: "100%",
@@ -518,25 +522,20 @@ function App() {
                     }}>
                     <MapPin size={30} />
                   </div>
-                  <h3>3. Selecione o Destino</h3>
-                  <p>
-                    A nossa tecnologia de GPS integrada deteta o seu ponto de
-                    partida. Basta inserir o seu destino desejado e confirmar o
-                    trajeto no mapa, visualizando imediatamente a melhor rota
-                    calculada.
-                  </p>
+                  <h3>{t.features.step3.title}</h3>
+                  <p>{t.features.step3.desc}</p>
                   <ul className="zigzag-list">
                     <li>
                       <div className="list-icon">
                         <ChevronRight size={14} />
                       </div>{" "}
-                      Deteção automática do local
+                      {t.features.step3.list1}
                     </li>
                     <li>
                       <div className="list-icon">
                         <ChevronRight size={14} />
                       </div>{" "}
-                      Sugestões de rotas otimizadas
+                      {t.features.step3.list2}
                     </li>
                   </ul>
                 </motion.div>
@@ -556,7 +555,7 @@ function App() {
                     }}>
                     <img
                       src="/screens/step3.png"
-                      alt="Passo 3 - Destino"
+                      alt={t.features.step3.title}
                       style={{
                         width: "100%",
                         height: "100%",
@@ -595,25 +594,20 @@ function App() {
                     }}>
                     <Car size={30} />
                   </div>
-                  <h3>4. Escolha a Viatura e Preço</h3>
-                  <p>
-                    Visualize as viaturas disponíveis, o tempo estimado de
-                    chegada (ETA) e o valor fixo da viagem. Compare as opções e
-                    selecione o carro perfeito, com total transparência sem
-                    surpresas no final.
-                  </p>
+                  <h3>{t.features.step4.title}</h3>
+                  <p>{t.features.step4.desc}</p>
                   <ul className="zigzag-list">
                     <li>
                       <div className="list-icon">
                         <ChevronRight size={14} />
                       </div>{" "}
-                      Valores transparentes
+                      {t.features.step4.list1}
                     </li>
                     <li>
                       <div className="list-icon">
                         <ChevronRight size={14} />
                       </div>{" "}
-                      Previsão exata de tempo
+                      {t.features.step4.list2}
                     </li>
                   </ul>
                 </motion.div>
@@ -634,7 +628,7 @@ function App() {
                     <div className="visual-bg-glow"></div>
                     <img
                       src="/screens/step4.png"
-                      alt="Passo 4 - Viatura"
+                      alt={t.features.step4.title}
                       style={{
                         width: "100%",
                         height: "100%",
@@ -673,25 +667,20 @@ function App() {
                     }}>
                     <Bell size={30} />
                   </div>
-                  <h3>5. Confirmação e Notificação</h3>
-                  <p>
-                    Após solicitar, receberá uma notificação instantânea assim
-                    que o motorista mais próximo aceitar a viagem. Acompanhe a
-                    aproximação em tempo real e prepare-se para viajar com
-                    segurança e conforto.
-                  </p>
+                  <h3>{t.features.step5.title}</h3>
+                  <p>{t.features.step5.desc}</p>
                   <ul className="zigzag-list">
                     <li>
                       <div className="list-icon">
                         <ChevronRight size={14} />
                       </div>{" "}
-                      Notificações em tempo real
+                      {t.features.step5.list1}
                     </li>
                     <li>
                       <div className="list-icon">
                         <ChevronRight size={14} />
                       </div>{" "}
-                      Acompanhamento no mapa
+                      {t.features.step5.list2}
                     </li>
                   </ul>
                 </motion.div>
@@ -712,7 +701,7 @@ function App() {
                     <div className="visual-bg-glow"></div>
                     <img
                       src="/screens/step5.png"
-                      alt="Passo 5 - Notificação"
+                      alt={t.features.step5.title}
                       style={{
                         width: "100%",
                         height: "100%",
@@ -735,12 +724,9 @@ function App() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.6 }}>
-              <span className="section-badge">Parceiros</span>
-              <h2>Torne-se um parceiro WiTransfer</h2>
-              <p>
-                Tem uma frota ou quer trabalhar connosco? Entre em contacto e
-                descubra as vantagens exclusivas para o seu negócio.
-              </p>
+              <span className="section-badge">{t.partners.badge}</span>
+              <h2>{t.partners.title}</h2>
+              <p>{t.partners.desc}</p>
             </motion.div>
 
             <div className="partners-split">
@@ -750,11 +736,8 @@ function App() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}>
-                <h3>Informações de Contacto</h3>
-                <p className="partners-details-desc">
-                  A nossa equipa está sempre pronta para o ajudar a escalar o
-                  seu negócio de mobilidade urbana connosco.
-                </p>
+                <h3>{t.partners.contactTitle}</h3>
+                <p className="partners-details-desc">{t.partners.contactDesc}</p>
 
                 <div className="contact-info-list">
                   <div className="contact-item">
@@ -762,7 +745,7 @@ function App() {
                       <MapPin size={22} />
                     </div>
                     <div>
-                      <strong>Morada</strong>
+                      <strong>{t.partners.labels.address}</strong>
                       <span>Luanda, Angola (Talatona)</span>
                     </div>
                   </div>
@@ -771,7 +754,7 @@ function App() {
                       <Phone size={22} />
                     </div>
                     <div>
-                      <strong>Telefone</strong>
+                      <strong>{t.partners.labels.phone}</strong>
                       <a href="tel:+244926002092" className="contact-link">
                         +244 926 002 092
                       </a>
@@ -782,7 +765,7 @@ function App() {
                       <Mail size={22} />
                     </div>
                     <div>
-                      <strong>E-mail</strong>
+                      <strong>{t.partners.labels.email}</strong>
                       <a
                         href="mailto:Geral@maisresultados.co.ao"
                         className="contact-link">
@@ -795,8 +778,8 @@ function App() {
                       <Clock size={22} />
                     </div>
                     <div>
-                      <strong>Horário</strong>
-                      <span>Segunda a Sexta, 08:00 - 18:00</span>
+                      <strong>{t.partners.labels.schedule}</strong>
+                      <span>{t.partners.labels.scheduleVal}</span>
                     </div>
                   </div>
                 </div>
@@ -810,10 +793,10 @@ function App() {
                 transition={{ duration: 0.6 }}>
                 <form className="partners-form" onSubmit={handlePartnerSubmit}>
                   <div className="form-group">
-                    <label>Nome Completo / Empresa</label>
+                    <label>{t.partners.form.name}</label>
                     <input
                       type="text"
-                      placeholder="Como devemos chamá-lo?"
+                      placeholder={t.partners.form.namePlaceholder}
                       required
                       value={formData.name}
                       onChange={(e) =>
@@ -823,10 +806,10 @@ function App() {
                   </div>
                   <div className="form-row">
                     <div className="form-group">
-                      <label>E-mail</label>
+                      <label>{t.partners.form.email}</label>
                       <input
                         type="email"
-                        placeholder="O seu melhor e-mail"
+                        placeholder={t.partners.form.emailPlaceholder}
                         required
                         value={formData.email}
                         onChange={(e) =>
@@ -835,10 +818,10 @@ function App() {
                       />
                     </div>
                     <div className="form-group">
-                      <label>Telefone</label>
+                      <label>{t.partners.form.phone}</label>
                       <input
                         type="tel"
-                        placeholder="+244..."
+                        placeholder={t.partners.form.phonePlaceholder}
                         required
                         value={formData.phone}
                         onChange={(e) =>
@@ -848,10 +831,10 @@ function App() {
                     </div>
                   </div>
                   <div className="form-group">
-                    <label>Mensagem</label>
+                    <label>{t.partners.form.message}</label>
                     <textarea
                       rows={4}
-                      placeholder="Conte-nos como podemos colaborar..."
+                      placeholder={t.partners.form.messagePlaceholder}
                       required
                       value={formData.message}
                       onChange={(e) =>
@@ -861,7 +844,7 @@ function App() {
                   <button
                     type="submit"
                     className="btn btn-primary form-submit-btn">
-                    Enviar Mensagem
+                    {t.partners.form.submit}
                   </button>
                 </form>
               </motion.div>
@@ -873,12 +856,8 @@ function App() {
           <div className="container">
             <div className="download-split">
               <div className="download-content">
-                <h2>Leve o WiTransfer no seu bolso</h2>
-                <p>
-                  Acesso rápido, segurança garantida e os melhores motoristas à
-                  distância de um clique. Descarregue a nossa aplicação agora e
-                  viaje com conforto hoje mesmo.
-                </p>
+                <h2>{t.download.title}</h2>
+                <p>{t.download.desc}</p>
 
                 <div className="download-action">
                   <a
@@ -890,7 +869,7 @@ function App() {
                       color: "var(--color-primary)",
                       border: "none",
                     }}>
-                    Baixar Aplicativo <Bot size={20} />
+                    {t.download.button} <Bot size={20} />
                   </a>
                 </div>
               </div>
@@ -915,34 +894,30 @@ function App() {
               <a href="#" className="logo">
                 <img src="/images/logo.png" alt="WiTransfer" />
               </a>
-              <p className="footer-tagline">
-                A sua viagem, a nossa prioridade. Conectamos passageiros aos
-                melhores motoristas da cidade com rapidez, segurança e o melhor
-                preço.
-              </p>
+              <p className="footer-tagline">{t.footer.tagline}</p>
             </div>
 
             <div className="footer-links-group">
-              <h4>Produto</h4>
+              <h4>{t.footer.product}</h4>
               <ul>
                 <li>
-                  <a href="#features">Como Funciona</a>
+                  <a href="#features">{t.footer.links.howItWorks}</a>
                 </li>
                 <li>
-                  <a href="#download">Download</a>
+                  <a href="#download">{t.footer.links.download}</a>
                 </li>
               </ul>
             </div>
 
             <div className="footer-links-group">
-              <h4>Motoristas</h4>
+              <h4>{t.footer.drivers}</h4>
               <ul>
                 <li>
                   <a
                     href={whatsappLink}
                     target="_blank"
                     rel="noopener noreferrer">
-                    Seja Motorista
+                    {t.footer.links.beADriver}
                   </a>
                 </li>
                 <li>
@@ -950,24 +925,24 @@ function App() {
                     href={whatsappLink}
                     target="_blank"
                     rel="noopener noreferrer">
-                    Requisitos
+                    {t.footer.links.requirements}
                   </a>
                 </li>
               </ul>
             </div>
 
             <div className="footer-links-group">
-              <h4>Empresa</h4>
+              <h4>{t.footer.company}</h4>
               <ul>
                 <li>
-                  <a href="#about">Sobre Nós</a>
+                  <a href="#about">{t.footer.links.aboutUs}</a>
                 </li>
                 <li>
                   <a
                     href={whatsappLink}
                     target="_blank"
                     rel="noopener noreferrer">
-                    Contactos
+                    {t.footer.links.contacts}
                   </a>
                 </li>
               </ul>
@@ -976,8 +951,7 @@ function App() {
 
           <div className="footer-bottom">
             <p>
-              &copy; {new Date().getFullYear()} WiTransfer. Todos os direitos
-              reservados.
+              &copy; {new Date().getFullYear()} WiTransfer. {t.footer.rights}
             </p>
           </div>
         </div>
