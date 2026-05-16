@@ -1242,3 +1242,87 @@ body {
   margin: 0 auto;
   border-radius: 10px;
 }
+
+/* Phone Input Styles */
+.phone-input-container {
+  width: 100% !important;
+  font-family: inherit !important;
+}
+
+.phone-input-field {
+  width: 100% !important;
+  height: auto !important;
+  padding: 1.1rem 1.25rem 1.1rem 3.5rem !important;
+  border-radius: 16px !important;
+  border: 1.5px solid rgba(144, 42, 209, 0.08) !important;
+  background: #fdfbff !important;
+  font-size: 1rem !important;
+  color: var(--color-text) !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.phone-input-field:focus {
+  outline: none !important;
+  border-color: var(--color-primary) !important;
+  box-shadow: 0 10px 25px rgba(144, 42, 209, 0.08) !important;
+  background: var(--color-white) !important;
+  transform: translateY(-2px);
+}
+
+.phone-input-button {
+  background: transparent !important;
+  border: none !important;
+  border-radius: 16px 0 0 16px !important;
+  padding-left: 1rem !important;
+  transition: all 0.3s ease !important;
+}
+
+.phone-input-button:hover,
+.phone-input-button.open {
+  background: rgba(144, 42, 209, 0.05) !important;
+}
+
+.phone-input-dropdown {
+  border-radius: 12px !important;
+  border: 1px solid rgba(144, 42, 209, 0.1) !important;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1) !important;
+  background: var(--color-white) !important;
+  overflow: hidden !important;
+  margin-top: 8px !important;
+  animation: dropdownIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+@keyframes dropdownIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.phone-input-dropdown .country {
+  padding: 10px 15px !important;
+  transition: background 0.2s ease !important;
+}
+
+.phone-input-dropdown .country:hover,
+.phone-input-dropdown .country.highlight {
+  background: rgba(144, 42, 209, 0.05) !important;
+}
+
+.phone-input-dropdown .country .dial-code {
+  color: var(--color-primary) !important;
+  font-weight: 600 !important;
+}
+
+.phone-input-search {
+  margin: 0 !important;
+  padding: 12px 15px !important;
+  width: 100% !important;
+  border: none !important;
+  border-bottom: 1px solid rgba(144, 42, 209, 0.08) !important;
+  font-family: inherit !important;
+  background: #fdfbff !important;
+}
+
+.phone-input-search:focus {
+  outline: none !important;
+  background: var(--color-white) !important;
+}

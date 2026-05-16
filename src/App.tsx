@@ -15,11 +15,16 @@ import {
   Languages,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 import "./index.css";
 import { translations } from "./translations";
 import type { Language } from "./translations";
 
+const InternationalPhoneInput = (PhoneInput as any).default || PhoneInput;
+
 function App() {
+  console.log("PhoneInput component check:", InternationalPhoneInput);
   const [scrolled, setScrolled] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -804,7 +809,6 @@ function App() {
                       }
                     />
                   </div>
-                  <div className="form-row">
                     <div className="form-group">
                       <label>{t.partners.form.email}</label>
                       <input
@@ -819,17 +823,24 @@ function App() {
                     </div>
                     <div className="form-group">
                       <label>{t.partners.form.phone}</label>
-                      <input
-                        type="tel"
-                        placeholder={t.partners.form.phonePlaceholder}
-                        required
+                      <InternationalPhoneInput
+                        country={"ao"}
                         value={formData.phone}
-                        onChange={(e) =>
-                          setFormData({ ...formData, phone: e.target.value })
+                        onChange={(phone: string) =>
+                          setFormData({ ...formData, phone })
                         }
+                        placeholder={t.partners.form.phonePlaceholder}
+                        inputClass="phone-input-field"
+                        containerClass="phone-input-container"
+                        buttonClass="phone-input-button"
+                        dropdownClass="phone-input-dropdown"
+                        searchClass="phone-input-search"
+                        enableSearch={true}
+                        disableSearchIcon={true}
+                        searchPlaceholder="Pesquisar..."
+                        specialLabel=""
                       />
                     </div>
-                  </div>
                   <div className="form-group">
                     <label>{t.partners.form.message}</label>
                     <textarea
