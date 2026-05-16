@@ -866,8 +866,6 @@ function App() {
                   <div className="form-group">
                     <label>{t.partners.form.phone}</label>
                     <div className="separated-phone-input">
-                      // eslint-disable-next-line
-                      @typescript-eslint/no-explicit-any
                       <div
                         className="country-selector-wrapper"
                         // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -876,7 +874,7 @@ function App() {
                           country={"ao"}
                           value={dialCode}
                           // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                          onChange={(_phone, data: any) => {
+                          onChange={(_phone: any, data: any) => {
                             setDialCode(data.dialCode);
                           }}
                           inputStyle={{ display: "none" }}
