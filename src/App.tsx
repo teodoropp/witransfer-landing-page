@@ -869,7 +869,14 @@ function App() {
                       <div
                         className="country-selector-wrapper"
                         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                        style={{ "--dial-code": `"+${dialCode}"` } as any}>
+                        style={{ "--dial-code": `"+${dialCode}"`, cursor: "pointer" } as any}
+                        onClick={(e) => {
+                          const flag = e.currentTarget.querySelector('.selected-flag') as HTMLElement;
+                          const dropdown = e.currentTarget.querySelector('.phone-input-dropdown') as HTMLElement;
+                          if (flag && !flag.contains(e.target as Node) && !(dropdown && dropdown.contains(e.target as Node))) {
+                            flag.click();
+                          }
+                        }}>
                         <InternationalPhoneInput
                           country={"ao"}
                           value={dialCode}
