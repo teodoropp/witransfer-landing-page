@@ -1086,10 +1086,14 @@ function App() {
             </div>
           </div>
 
-          <div className="footer-bottom">
-            <p>
+          <div className="footer-bottom" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
+            <p style={{ margin: 0 }}>
               &copy; {new Date().getFullYear()} WiTransfer. {t.footer.rights}
             </p>
+            <div style={{ display: 'flex', gap: '20px', fontSize: '0.9rem' }}>
+              <a href="/politica-privacidade.html" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none', opacity: 0.8 }}>Política de Privacidade</a>
+              <a href="/termos-uso.html" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none', opacity: 0.8 }}>Termos de Uso</a>
+            </div>
           </div>
         </div>
       </footer>
