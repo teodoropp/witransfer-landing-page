@@ -218,12 +218,19 @@ function App() {
               <Languages size={20} />
               <span>{lang.toUpperCase()}</span>
             </button>
-            <a
-              href="#download"
-              className="btn-nav desktop-only"
-              onClick={(e) => scrollToSection(e, "download")}>
-              {t.nav.download}
-            </a>
+            <div className="nav-buttons desktop-only" style={{ display: "flex", gap: "10px" }}>
+              <button
+                className="btn-nav"
+                style={{ background: "transparent", color: "var(--color-text)", boxShadow: "none", border: "1px solid var(--color-primary)" }}
+                onClick={() => window.location.href = `${import.meta.env.VITE_WEB_APP_URL || "https://aplicativo.witransfer.org"}/login`}>
+                {t.nav.signIn}
+              </button>
+              <button
+                className="btn-nav"
+                onClick={() => setShowQRModal(true)}>
+                {t.nav.register}
+              </button>
+            </div>
             <button
               className="menu-toggle"
               onClick={() => setIsMenuOpen(!isMenuOpen)}>
@@ -286,12 +293,20 @@ function App() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.4 }}>
-                    <a
-                      href="#download"
-                      className="btn-nav mobile-cta"
-                      onClick={(e) => scrollToSection(e, "download")}>
-                      {t.nav.download}
-                    </a>
+                    <div style={{ display: "flex", flexDirection: "column", gap: "10px", width: "100%" }}>
+                      <button
+                        className="btn-nav mobile-cta"
+                        style={{ background: "transparent", color: "var(--color-primary)", boxShadow: "none", border: "1px solid var(--color-primary)", width: "100%" }}
+                        onClick={() => { window.location.href = `${import.meta.env.VITE_WEB_APP_URL || "https://aplicativo.witransfer.org"}/login`; setIsMenuOpen(false); }}>
+                        {t.nav.signIn}
+                      </button>
+                      <button
+                        className="btn-nav mobile-cta"
+                        style={{ width: "100%" }}
+                        onClick={() => { setShowQRModal(true); setIsMenuOpen(false); }}>
+                        {t.nav.register}
+                      </button>
+                    </div>
                     <p>{t.nav.followUs}</p>
                     <div className="mobile-socials">
                       {/* Placeholders for social icons if needed */}
@@ -868,12 +883,25 @@ function App() {
                     <div className="separated-phone-input">
                       <div
                         className="country-selector-wrapper"
-                        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                        style={{ "--dial-code": `"+${dialCode}"`, cursor: "pointer" } as any}
+                        style={
+                          {
+                            "--dial-code": `"+${dialCode}"`,
+                            cursor: "pointer",
+                            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                          } as any
+                        }
                         onClick={(e) => {
-                          const flag = e.currentTarget.querySelector('.selected-flag') as HTMLElement;
-                          const dropdown = e.currentTarget.querySelector('.phone-input-dropdown') as HTMLElement;
-                          if (flag && !flag.contains(e.target as Node) && !(dropdown && dropdown.contains(e.target as Node))) {
+                          const flag = e.currentTarget.querySelector(
+                            ".selected-flag",
+                          ) as HTMLElement;
+                          const dropdown = e.currentTarget.querySelector(
+                            ".phone-input-dropdown",
+                          ) as HTMLElement;
+                          if (
+                            flag &&
+                            !flag.contains(e.target as Node) &&
+                            !(dropdown && dropdown.contains(e.target as Node))
+                          ) {
                             flag.click();
                           }
                         }}>
@@ -1022,6 +1050,7 @@ function App() {
             </motion.div>
           )}
         </AnimatePresence>
+
       </main>
 
       <footer className="footer">
@@ -1086,13 +1115,40 @@ function App() {
             </div>
           </div>
 
-          <div className="footer-bottom" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
+          <div
+            className="footer-bottom"
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: "10px",
+            }}>
             <p style={{ margin: 0 }}>
               &copy; {new Date().getFullYear()} WiTransfer. {t.footer.rights}
             </p>
-            <div style={{ display: 'flex', gap: '20px', fontSize: '0.9rem' }}>
-              <a href="/politica-privacidade.html" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none', opacity: 0.8 }}>Política de Privacidade</a>
-              <a href="/termos-uso.html" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none', opacity: 0.8 }}>Termos de Uso</a>
+            <div style={{ display: "flex", gap: "20px", fontSize: "0.9rem" }}>
+              <a
+                href="/politica-privacidade.html"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  color: "inherit",
+                  textDecoration: "none",
+                  opacity: 0.8,
+                }}>
+                Política de Privacidade
+              </a>
+              <a
+                href="/termos-uso.html"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  color: "inherit",
+                  textDecoration: "none",
+                  opacity: 0.8,
+                }}>
+                Termos de Uso
+              </a>
             </div>
           </div>
         </div>

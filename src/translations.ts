@@ -5,6 +5,8 @@ export const translations = {
       features: "Funcionalidades",
       partners: "Parceiros",
       download: "Obter a App",
+      signIn: "Iniciar sessão",
+      register: "Registar-se",
       followUs: "Siga-nos nas redes sociais",
     },
     hero: {
@@ -112,6 +114,8 @@ export const translations = {
       features: "Features",
       partners: "Partners",
       download: "Get the App",
+      signIn: "Sign in",
+      register: "Sign up",
       followUs: "Follow us on social media",
     },
     hero: {
