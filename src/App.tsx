@@ -222,7 +222,7 @@ function App() {
               <button
                 className="btn-nav"
                 style={{ background: "transparent", color: "var(--color-text)", boxShadow: "none", border: "1px solid var(--color-primary)" }}
-                onClick={() => window.location.href = `${import.meta.env.VITE_WEB_APP_URL || "https://aplicativo.witransfer.org"}/login`}>
+                onClick={() => window.location.href = `${import.meta.env.VITE_WEB_APP_URL || "https://app.witransfer.org"}/login`}>
                 {t.nav.signIn}
               </button>
               <button
@@ -297,7 +297,7 @@ function App() {
                       <button
                         className="btn-nav mobile-cta"
                         style={{ background: "transparent", color: "var(--color-primary)", boxShadow: "none", border: "1px solid var(--color-primary)", width: "100%" }}
-                        onClick={() => { window.location.href = `${import.meta.env.VITE_WEB_APP_URL || "https://aplicativo.witransfer.org"}/login`; setIsMenuOpen(false); }}>
+                        onClick={() => { window.location.href = `${import.meta.env.VITE_WEB_APP_URL || "https://app.witransfer.org"}/login`; setIsMenuOpen(false); }}>
                         {t.nav.signIn}
                       </button>
                       <button
