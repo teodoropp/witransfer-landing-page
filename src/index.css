@@ -249,6 +249,9 @@ body {
   font-weight: 500;
   font-size: 0.95rem;
   text-decoration: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow: 0 4px 10px rgba(144, 42, 209, 0.15);
 }
