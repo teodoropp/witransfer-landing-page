@@ -44,14 +44,6 @@ import type { Language } from "./translations";
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const InternationalPhoneInput = (PhoneInput as any).default || PhoneInput;
 
-const getWebAppUrl = () => {
-  const isLocal = typeof window !== "undefined" && 
-    (window.location.hostname === "localhost" || 
-     window.location.hostname === "127.0.0.1" || 
-     window.location.hostname.startsWith("192.168."));
-  return isLocal ? "http://localhost:3000" : "https://aplicativo.witransfer.org";
-};
-
 function App() {
   console.log("PhoneInput component check:", InternationalPhoneInput);
   const [scrolled, setScrolled] = useState(false);
@@ -226,16 +218,23 @@ function App() {
               <Languages size={20} />
               <span>{lang.toUpperCase()}</span>
             </button>
-            <div className="nav-buttons desktop-only" style={{ display: "flex", gap: "10px" }}>
+            <div
+              className="nav-buttons desktop-only"
+              style={{ display: "flex", gap: "10px" }}>
               <button
                 className="btn-nav"
-                style={{ background: "transparent", color: "var(--color-text)", boxShadow: "none", border: "1px solid var(--color-primary)" }}
-                onClick={() => window.location.href = `${getWebAppUrl()}/login`}>
+                style={{
+                  background: "transparent",
+                  color: "var(--color-text)",
+                  boxShadow: "none",
+                  border: "1px solid var(--color-primary)",
+                }}
+                onClick={() =>
+                  (window.location.href = `${import.meta.env.VITE_WEB_APP_URL || "https://aplicativo.witransfer.org"}/login`)
+                }>
                 {t.nav.signIn}
               </button>
-              <button
-                className="btn-nav"
-                onClick={() => setShowQRModal(true)}>
+              <button className="btn-nav" onClick={() => setShowQRModal(true)}>
                 {t.nav.register}
               </button>
             </div>
@@ -301,17 +300,35 @@ function App() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.4 }}>
-                    <div style={{ display: "flex", flexDirection: "column", gap: "10px", width: "100%" }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "10px",
+                        width: "100%",
+                      }}>
                       <button
                         className="btn-nav mobile-cta"
-                        style={{ background: "transparent", color: "var(--color-primary)", boxShadow: "none", border: "1px solid var(--color-primary)", width: "100%" }}
-                        onClick={() => { window.location.href = `${getWebAppUrl()}/login`; setIsMenuOpen(false); }}>
+                        style={{
+                          background: "transparent",
+                          color: "var(--color-primary)",
+                          boxShadow: "none",
+                          border: "1px solid var(--color-primary)",
+                          width: "100%",
+                        }}
+                        onClick={() => {
+                          window.location.href = `${import.meta.env.VITE_WEB_APP_URL || "https://app.witransfer.org"}/login`;
+                          setIsMenuOpen(false);
+                        }}>
                         {t.nav.signIn}
                       </button>
                       <button
                         className="btn-nav mobile-cta"
                         style={{ width: "100%" }}
-                        onClick={() => { setShowQRModal(true); setIsMenuOpen(false); }}>
+                        onClick={() => {
+                          setShowQRModal(true);
+                          setIsMenuOpen(false);
+                        }}>
                         {t.nav.register}
                       </button>
                     </div>
@@ -1039,8 +1056,8 @@ function App() {
                 </div>
                 <div className="qr-code-container">
                   <QRCodeSVG
-                    value={window.location.origin + "/witransfer.apk"}
-                    size={200}
+                    value="https://play.google.com/store/apps/details?id=witransfer.com"
+                    size={170}
                     level={"H"}
                     includeMargin={true}
                   />
@@ -1048,17 +1065,35 @@ function App() {
                 <div className="qr-modal-footer">
                   <p>Disponível para Android</p>
                   <div className="store-badges">
-                    {/* Futuros links para as lojas */}
-                    <span className="badge-placeholder">
-                      Play Store em breve
-                    </span>
+                    <a
+                      href="https://play.google.com/store/apps/details?id=witransfer.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="play-store-btn-custom"
+                    >
+                      <svg
+                        viewBox="0 0 512 512"
+                        className="play-store-icon"
+                        width="18"
+                        height="18"
+                        style={{ marginRight: "10px", fill: "currentColor" }}
+                      >
+                        <path fill="#ea4335" d="M26.3 0c-4.9.5-8.7 3.5-10.4 7.9L242.4 256 26.3 0z" />
+                        <path fill="#fbbc05" d="M26.3 512l216.1-256L15.9 504.1c1.7 4.4 5.5 7.4 10.4 7.9z" />
+                        <path fill="#4285f4" d="M26.3 0L385.4 207c9 5.2 15.4 14.6 15.4 25.6s-6.4 20.4-15.4 25.6L26.3 512 242.4 256 26.3 0z" />
+                        <path fill="#34a853" d="M385.4 207L26.3 0 242.4 256 385.4 207z" />
+                      </svg>
+                      <div className="play-store-btn-text">
+                        <span className="play-store-sub">DISPONÍVEL NO</span>
+                        <span className="play-store-main">Google Play</span>
+                      </div>
+                    </a>
                   </div>
                 </div>
               </motion.div>
             </motion.div>
           )}
         </AnimatePresence>
-
       </main>
 
       <footer className="footer">
