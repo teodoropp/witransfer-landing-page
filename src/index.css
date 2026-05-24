@@ -245,7 +245,8 @@ body {
   color: var(--color-white);
   padding: 0.6rem 1.5rem;
   border-radius: 9999px;
-  font-weight: 600;
+  font-family: inherit;
+  font-weight: 500;
   font-size: 0.95rem;
   text-decoration: none;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
