@@ -10,10 +10,10 @@ export const translations = {
       followUs: "Siga-nos nas redes sociais",
     },
     hero: {
-      title: "Sua viagem,",
-      subtitle: "nossa prioridade.",
-      description: "O WiTransfer conecta-o aos melhores motoristas da cidade. Rápido, seguro e concebido com a melhor experiência de utilização do mercado.",
-      cta: "Baixar Agora",
+      title: "A sua viagem,",
+      subtitle: "a nossa prioridade.",
+      description: "O WiTransfer liga-o aos melhores motoristas da cidade. Rápido, seguro e concebido com a melhor experiência de utilização do mercado.",
+      cta: "Descarregar Agora",
       learnMore: "Saber Mais",
     },
     about: {
@@ -84,10 +84,10 @@ export const translations = {
     download: {
       title: "Leve o WiTransfer no seu bolso",
       desc: "Acesso rápido, segurança garantida e os melhores motoristas à distância de um clique. Descarregue a nossa aplicação agora e viaje com conforto hoje mesmo.",
-      button: "Baixar Aplicativo",
+      button: "Descarregar Aplicação",
     },
     footer: {
-      tagline: "A sua viagem, a nossa prioridade. Conectamos passageiros aos melhores motoristas da cidade com rapidez, segurança e o melhor preço.",
+      tagline: "A sua viagem, a nossa prioridade. Ligamos passageiros aos melhores motoristas da cidade com rapidez, segurança e o melhor preço.",
       product: "Produto",
       drivers: "Motoristas",
       company: "Empresa",

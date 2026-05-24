@@ -77,7 +77,7 @@ function App() {
   useEffect(() => {
     document.title =
       lang === "pt"
-        ? "WiTransfer - Sua viagem, nossa prioridade"
+        ? "WiTransfer - A sua viagem, a nossa prioridade"
         : "WiTransfer - Your journey, our priority";
   }, [lang]);
 
