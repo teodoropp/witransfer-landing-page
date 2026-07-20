@@ -321,7 +321,7 @@ function App() {
                           width: "100%",
                         }}
                         onClick={() => {
-                          window.location.href = `${import.meta.env.VITE_WEB_APP_URL || "https://app.witransfer.org"}/login`;
+                          window.location.href = `${import.meta.env.VITE_WEB_APP_URL || "https://aplicativo.witransfer.org"}/login`;
                           setIsMenuOpen(false);
                         }}>
                         {t.nav.signIn}
@@ -330,7 +330,7 @@ function App() {
                         className="btn-nav mobile-cta"
                         style={{ width: "100%" }}
                         onClick={() => {
-                          window.location.href = `${import.meta.env.VITE_WEB_APP_URL || "https://app.witransfer.org"}/parceiro/registo`;
+                          window.location.href = `${import.meta.env.VITE_WEB_APP_URL || "https://aplicativo.witransfer.org"}/parceiro/registo`;
                           setIsMenuOpen(false);
                         }}>
                         {t.nav.register}
