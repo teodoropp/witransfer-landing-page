@@ -234,7 +234,11 @@ function App() {
                 }>
                 {t.nav.signIn}
               </button>
-              <button className="btn-nav" onClick={() => setShowQRModal(true)}>
+              <button
+                className="btn-nav"
+                onClick={() =>
+                  (window.location.href = `${import.meta.env.VITE_WEB_APP_URL || "https://aplicativo.witransfer.org"}/parceiro/registo`)
+                }>
                 {t.nav.register}
               </button>
             </div>
@@ -326,7 +330,7 @@ function App() {
                         className="btn-nav mobile-cta"
                         style={{ width: "100%" }}
                         onClick={() => {
-                          setShowQRModal(true);
+                          window.location.href = `${import.meta.env.VITE_WEB_APP_URL || "https://app.witransfer.org"}/parceiro/registo`;
                           setIsMenuOpen(false);
                         }}>
                         {t.nav.register}
